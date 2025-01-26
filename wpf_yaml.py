@@ -1,6 +1,7 @@
 import sys
 import os
 from pathlib import Path, PurePath
+from subprocess import Popen
 import yaml
 import pyxml
 
@@ -106,6 +107,12 @@ def run(command):
 if __name__ == "__main__":   
     if len(sys.argv) == 1:
         while True:
-            run(input("wpftools> ").split(" "))
+            try:
+                command = input("wpftools> ")
+                if command == "exit":
+                    break
+                run(command.split(" "))
+            except EOFError:
+                break
     else:
         run(sys.argv[1:])
