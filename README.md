@@ -17,6 +17,10 @@ Příkazy
 * `new <název> <verze>` - Vytvoří nový projekt se zadaným jménem a zadanou verzí .NET
 * `build` - Sestaví projekt ve vašem aktuálním adresáři.
 
+Syntaxe
+-------
+viz soubor test/MainWindow.yaml
+
 ---
 English
 ------
@@ -34,3 +38,7 @@ Commands
 --------
 * `new <name> <version> - Creates a new project with the specified name and .NET version.
 * build - builds a project located in your current directory.
+
+Syntax
+------
+see test/MainWindow.yaml
