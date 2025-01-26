@@ -1,7 +1,7 @@
 # wpf_yaml
+---
 Česky
 -----
----
 Překladač návrhů GUI napsaných v YAMLu do XAMLu pro WPF a s ním více či méně kompatibilní knihovny.
 
 Pokyny k sestavení
@@ -12,9 +12,9 @@ Pokyny k sestavení
    nebo
 3. Spusťe program přímo ze zdrojového kódu: `python wpf_yaml.py [příkaz] [parametry]`
 
+---
 English
 ------
----
 A YAML to XAML transpiler for designing GUIs in WPF and more or less compatible GUI libraries.
 
 Building instructions
