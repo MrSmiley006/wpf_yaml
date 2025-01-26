@@ -1,0 +1,15 @@
+Window:
+    - Height: "450"
+    - Width: "600"
+    - Grid:
+        Label:
+            - Name: "label1"
+            - Content: "Ahoj světe"
+            - Margin: "0,0,0,0"
+            - Visibility: "Hidden"
+        Button:
+            - Content: "Klikni sem"
+            - Margin: "0,30,0,0"
+            - Width: "60"
+            - Height: "20"
+            - Click: "ButtonClick"
