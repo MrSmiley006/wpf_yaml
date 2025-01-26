@@ -10,7 +10,12 @@ Pokyny k sestavení
 2. Přejděte do adresáře s programem: `cd wpf_yaml`
 3. Přeložte program tímto příkazem: `pyinstaller wpf_yaml.py --onefile --add-data template:template`
    nebo
-3. Spusťe program přímo ze zdrojového kódu: `python wpf_yaml.py [příkaz] [parametry]`
+3. Spusťte program přímo ze zdrojového kódu: `python wpf_yaml.py [příkaz] [parametry]`
+
+Příkazy
+-------
+* `new <název> <verze>` - Vytvoří nový projekt se zadaným jménem a zadanou verzí .NET
+* `build` - Sestaví projekt ve vašem aktuálním adresáři.
 
 ---
 English
@@ -24,3 +29,8 @@ Building instructions
 3. Compile the program with this command: `pyinstaller wpf_yaml.py --onefile --add-data template:template`
    or
 3. Run the program directly from source code: `python wpf_yaml.py [command] [args]`
+
+Commands
+--------
+* `new <name> <version> - Creates a new project with the specified name and .NET version.
+* build - builds a project located in your current directory.
