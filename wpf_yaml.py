@@ -4,13 +4,7 @@ from pathlib import Path, PurePath
 from subprocess import Popen
 import yaml
 import pyxml
-
-class string(str):
-    def __init__(self):
-        string = b""
-        
-    def write(self, text):
-        self.string = text
+import random
 
 argument_error = "Chybný počet argumentů.\nPoužití: "
 project = None
@@ -32,7 +26,7 @@ def new_project(*args):
         if os.path.isdir("template/" + i):
             continue
         with open(os.path.join("template", i)) as f:
-            contents = "\n".join([x.format(*args) for x in f.readlines()])
+            contents = "".join([x.format(*args) for x in f.readlines()])
         with open(os.path.join(args[0], i), "w") as f:
             f.write(contents)
     project = args[0]
@@ -41,6 +35,8 @@ def new_project(*args):
 def yaml_to_xml(data, toplevel=True):
     elements = []
     for i, j in data.items():
+        if i[-4:].isnumeric():
+            i = i[:-4]
         elem = pyxml.Element(i)
         if isinstance(j, dict):
             for k in yaml_to_xml(j, False):
@@ -62,7 +58,14 @@ def yaml_to_xml(data, toplevel=True):
 def build_project():
     for i in [x for x in os.listdir() if x.endswith("yaml")]:
         with open(i) as f:
-            yaml_data = yaml.safe_load(f.read())
+            file_contents = f.read()
+        file_contents = file_contents.split("\n")
+        for j in range(len(file_contents)):
+            if file_contents[j].endswith(":") and file_contents[j] != "Window:":
+                file_contents[j] = file_contents[j][:-1] + str(random.randint(1000, 9999)) + ":"
+        file_contents = "\n".join(file_contents)
+        print(file_contents)
+        yaml_data = yaml.safe_load(file_contents)
         for k in range(len(root_attribs)):
             key = list(root_attribs[k].keys())[0]
             root_attribs[k][key] = root_attribs[k][key].format(PurePath(os.getcwd()).parts[-1])
@@ -76,20 +79,14 @@ def build_project():
             f.seek(0)
             f.truncate()
             f.write(data.replace("&nbsp;", " "))
-    global msbuild
-    try:
-        Popen(("dotnet", "build"))
-    except FileNotFoundError:
-        if os.name == "nt":
-            for j in ("programfiles", "programfiles(x86)"):
-                for i in Path(os.environ[j]).rglob("*"):
-                    if i.parts[-1] == "MSBuild.dll":
-                        msbuild = i
-                        break
-                    
-        if not msbuild:
-            sys.exit("MSBuild.dll nenalezen")
-        os.system(str(msbuild))
+
+        try:
+            Popen(("dotnet", "build"))
+        except FileNotFoundError:
+            try:
+                Popen((os.environ["DOTNET_HOME"], "dotnet", "build"))
+            except KeyError:
+                sys.exit("Příkaz 'dotnet' nenalezen. Nastav proměnnou prostředí DOTNET_HOME a zkus to znovu.")
 
 def run(command):
     if command[0] == "new":
@@ -108,7 +105,7 @@ if __name__ == "__main__":
     if len(sys.argv) == 1:
         while True:
             try:
-                command = input("wpftools> ")
+                command = input("wpf_yaml> ")
                 if command == "exit":
                     break
                 run(command.split(" "))

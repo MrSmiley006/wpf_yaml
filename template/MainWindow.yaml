@@ -1,3 +1,6 @@
 Window:
-    Grid:
+    - Width:
+    - Height:
+    - Title: {0}
+    - Grid:
     
